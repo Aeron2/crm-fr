@@ -25,3 +25,10 @@ footer {
 .hello {
     color: red;
 }
+.add-new-ticket{
+    max-width: 600px;
+    margin: auto;
+    /* margin-right: auto; */
+
+    box-shadow: 0px 0px 15px -5px black;
+}
