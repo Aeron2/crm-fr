@@ -41,7 +41,7 @@ function AddTicketsPage() {
         ...initialFrmErr,
         subject: !isSubjectValid,
       });
-    // console.log(frmData);
+    console.log(frmData);
   };
 
   return (

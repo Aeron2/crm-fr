@@ -40,9 +40,9 @@ function AddTicketFormComp({
               required
             />
 
-            <Form.Text className='text-danger'>
+            {/* <Form.Text className='text-danger'>
               {frmDataErr.subject && 'Subject is Required'}
-            </Form.Text>
+            </Form.Text> */}
           </Col>
         </Form.Group>
         <Form.Group>
