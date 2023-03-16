@@ -41,6 +41,7 @@ function ResetPassword({
           </Form>
         </Col>
       </Row>
+      <hr />
       <Row>
         <Col>
           <a href="#!" onClick={() => formSwitcher('login')}>

@@ -3,7 +3,9 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import BreadcrumbComp from '../../components/breadcrumb/BreadcrumbComp';
 import SearchFormComp from '../../components/search-form/SearchFormComp';
 import TicketTable from '../../components/ticket-table/TicketTable';
+import { Link } from 'react-router-dom';
 import tickets from '../../components/ticket-table/dummy-tickets.json';
+
 function TicketsListsPage() {
   const [str, setStr] = useState('');
   const [displayTicket, setDisplayTicket] = useState(tickets);
@@ -31,7 +33,9 @@ function TicketsListsPage() {
       </Row>
       <Row className="mt-4">
         <Col>
-          <Button variant="info"> Add New Tickets</Button>
+          <Link to="/add-ticket">
+            <Button variant="info"> Add New Tickets</Button>
+          </Link>
         </Col>
         <Col className="text-right">
           <SearchFormComp handleOnChange={handleOnChange} str={str} />

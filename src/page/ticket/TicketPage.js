@@ -4,9 +4,11 @@ import BreadcrumbComp from '../../components/breadcrumb/BreadcrumbComp';
 import MessageHistoryComp from '../../components/message-history/MessageHistoryComp';
 import tickets from '../../components/ticket-table/dummy-tickets.json';
 import UpdateTicket from '../../components/update-ticket/UpdateTicket';
+import { useParams } from 'react-router-dom';
 const ticket = tickets[0];
 
 function TicketPage() {
+  const tId = useParams();
   const [message, setMessage] = useState('');
 
   useEffect(() => {}, [message]);
@@ -18,6 +20,7 @@ function TicketPage() {
     alert('Form submitted');
   };
 
+  console.log(tId);
   return (
     <Container>
       <Row>
@@ -27,6 +30,9 @@ function TicketPage() {
       </Row>
       <Row>
         <Col className="text-weight-bolder text-secondary">
+          {/* {ticket.id} */}
+          {/* <div>{ tid}</div> */}
+          {/* {tId} */}
           <div className="subject">Subject : {ticket.subject}</div>
           <div className="date">AddedAt : {ticket.addedAt}</div>
           <div className="status">Status : {ticket.status} </div>{' '}
