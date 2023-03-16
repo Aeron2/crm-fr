@@ -1,12 +1,15 @@
 import React from 'react';
-import { Route, Navigate, redirect } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 const isAuth = true;
-function PrivateRoute({ children }) {
+function PrivateRoute() {
   //    return (
   //      <Route {...rest} render={() => (isAuth ? children : redirect('/'))} />
   //    );
 
-  return isAuth ? <>{children}</> : <Navigate to="/" />;
+  // return isAuth ? <>{children}</> : <Navigate to="/" />;
+  return isAuth ? <Outlet/> : <Navigate to="/" />;
+
+
 }
 
 export default PrivateRoute;

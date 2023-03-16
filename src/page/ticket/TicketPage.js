@@ -5,13 +5,22 @@ import MessageHistoryComp from '../../components/message-history/MessageHistoryC
 import tickets from '../../components/ticket-table/dummy-tickets.json';
 import UpdateTicket from '../../components/update-ticket/UpdateTicket';
 import { useParams } from 'react-router-dom';
-const ticket = tickets[0];
+// const ticket = tickets[0];
 
 function TicketPage() {
-  const tId = useParams();
-  const [message, setMessage] = useState('');
+  const { tId } = useParams();
 
-  useEffect(() => {}, [message]);
+  const [message, setMessage] = useState('');
+  const [ticket, setTicket] = useState(tickets[0]);
+
+  useEffect(() => {
+    for (let i = 0; i < tickets.length; i++) {
+      if (tickets[i].id == tId) {
+        setTicket(tickets[i]);
+        continue;
+      }
+    }
+  }, [message, tId]);
   const handleOnChange = (e) => {
     setMessage(e.target.value);
     //   console.log(message)
@@ -20,7 +29,7 @@ function TicketPage() {
     alert('Form submitted');
   };
 
-  console.log(tId);
+  // console.log(tId);
   return (
     <Container>
       <Row>
@@ -32,7 +41,7 @@ function TicketPage() {
         <Col className="text-weight-bolder text-secondary">
           {/* {ticket.id} */}
           {/* <div>{ tid}</div> */}
-          {/* {tId} */}
+          {tId}
           <div className="subject">Subject : {ticket.subject}</div>
           <div className="date">AddedAt : {ticket.addedAt}</div>
           <div className="status">Status : {ticket.status} </div>{' '}

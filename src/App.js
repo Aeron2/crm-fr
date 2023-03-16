@@ -17,8 +17,13 @@ function App() {
         <Defaultlayout>
           <Routes>
             <Route exact path="/" element={<EntryPage />} />
-
-            <Route
+            <Route element={<PrivateRoute />}>
+              <Route element={<DashboardPage />} path="/dashboard" />
+              <Route element={<AddTicketsPage />} path="/add-ticket" />
+              <Route element={<TicketsListsPage />} path="/tickets" />
+              <Route element={<TicketPage />} path="/ticket/:tId" />
+            </Route>
+            {/* <Route
               path="/dashboard"
               element={
                 <PrivateRoute>
@@ -42,12 +47,6 @@ function App() {
                 </PrivateRoute>
               }
             />
-            {/* <PrivateRoute path="/dashboard">
-              <DashboardPage />
-            </PrivateRoute>
-            <PrivateRoute path="/ticket/:tid">
-              <TicketPage />
-            </PrivateRoute> */}
 
             <Route
               path="/ticket/:tid"
@@ -56,7 +55,7 @@ function App() {
                   <TicketPage />
                 </PrivateRoute>
               }
-            />
+            /> */}
 
             {/* <PrivateRoute path="/dashboard" element={<DashboardPage />} />
             <PrivateRoute path="/add-ticket" element={<AddTicketsPage />} />

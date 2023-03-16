@@ -26,7 +26,24 @@
     "subject": "issue with email certificates",
     "id": 2,
     "status": "Client response pending",
-    "addedAt": "14-03-2022"
+    "addedAt": "14-03-2022",
+    "history": [
+      {
+        "date": "20-05-2022",
+        "message": "please solve my problem i am in a hastre and my internaet doesent work  sdFDSAF",
+        "messageBy": "client"
+      },
+      {
+        "date": "20-05-2022",
+        "message": "operator hello world what do you want to do in life tel,l something about yoou andf hou you want t o proceed",
+        "messageBy": "operator"
+      },
+      {
+        "date": "20-05-2022",
+        "message": "sdfDSWfdswfDASVCSfdsf",
+        "messageBy": "client"
+      }
+    ]
   },
   {
     "id": 3,
