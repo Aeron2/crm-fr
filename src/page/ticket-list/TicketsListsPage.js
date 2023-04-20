@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchAllTickets } from './ticketsAction';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import BreadcrumbComp from '../../components/breadcrumb/BreadcrumbComp';
 import SearchFormComp from '../../components/search-form/SearchFormComp';
@@ -6,7 +8,11 @@ import TicketTable from '../../components/ticket-table/TicketTable';
 import { Link } from 'react-router-dom';
 import tickets from '../../components/ticket-table/dummy-tickets.json';
 
+
+
 function TicketsListsPage() {
+  const dispatch = useDispatch();
+
   const [str, setStr] = useState('');
   const [displayTicket, setDisplayTicket] = useState(tickets);
   const handleOnChange = (e) => {
@@ -14,7 +20,10 @@ function TicketsListsPage() {
     setStr(e.target.value);
     searchTicket(value);
   };
-  useEffect(() => {}, [str, displayTicket]);
+  useEffect(() => {
+    dispatch(fetchAllTickets());
+    // fetchAllTickets();
+  }, [str, displayTicket]);
 
   const searchTicket = (sttr) => {
     const displayTickets = tickets.filter((row) =>

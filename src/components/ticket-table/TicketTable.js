@@ -15,7 +15,7 @@ function TicketTable({ tickets }) {
       <tbody>
         {tickets.length ? (
           tickets.map((row) => (
-            <tr>
+            <tr key={row.id}>
               <td>{row.id}</td>
               <td>
                 <Link to={`/ticket/${row.id}`}>{row.subject}</Link>
