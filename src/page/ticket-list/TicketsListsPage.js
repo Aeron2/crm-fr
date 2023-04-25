@@ -14,24 +14,13 @@ function TicketsListsPage() {
   const dispatch = useDispatch();
 
   const [str, setStr] = useState('');
-  const [displayTicket, setDisplayTicket] = useState(tickets);
-  const handleOnChange = (e) => {
-    const value = e.target.value;
-    setStr(e.target.value);
-    searchTicket(value);
-  };
+  
   useEffect(() => {
     dispatch(fetchAllTickets());
     // fetchAllTickets();
-  }, [str, displayTicket]);
+  }, [str, dispatch]);
 
-  const searchTicket = (sttr) => {
-    const displayTickets = tickets.filter((row) =>
-      row.subject.toLowerCase().includes(sttr.toLowerCase())
-    );
-
-    setDisplayTicket(displayTickets);
-  };
+  
 
   return (
     <Container>
@@ -47,14 +36,14 @@ function TicketsListsPage() {
           </Link>
         </Col>
         <Col className="text-right">
-          <SearchFormComp handleOnChange={handleOnChange} str={str} />
+          <SearchFormComp />
         </Col>
       </Row>
 
       <hr />
       <Row>
         <Col>
-          <TicketTable tickets={displayTicket} />
+          <TicketTable  />
         </Col>
       </Row>
     </Container>

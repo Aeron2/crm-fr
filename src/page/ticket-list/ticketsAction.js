@@ -3,6 +3,7 @@ import {
   fetchTicketLoading,
   fetchTicketSuccess,
   fetchTicketFail,
+  searchTickets,
 } from './ticketsSlice';
 export const fetchAllTickets = () => async (dispatch) => {
   console.log('hello');
@@ -20,4 +21,8 @@ export const fetchAllTickets = () => async (dispatch) => {
   } catch (error) {
     dispatch(fetchTicketFail(error.message));
   }
+};
+
+export const filterSerachTicket = (str) => (dispatch) => {
+  dispatch(searchTickets(str));
 };
