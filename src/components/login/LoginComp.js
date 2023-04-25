@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container,
   Row,
@@ -10,18 +10,18 @@ import {
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
+import { getUserProfile } from '../../page/dashboard/userAction';
 import { loginPending, loginSuccess, loginFail } from './loginSlice';
 import { userLogin } from '../../api/userApi';
 
- const LoginForm = ({ formSwitcher }) => {
+const LoginForm = ({ formSwitcher }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+    
   const { isLoading, isAuth, error } = useSelector((state) => state.login);
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('dhruvaeron2002@gmail.com');
+  const [password, setPassword] = useState('password1');
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -58,11 +58,15 @@ import { userLogin } from '../../api/userApi';
       }
 
       dispatch(loginSuccess());
+      dispatch(getUserProfile());
       navigate('/dashboard');
     } catch (error) {
       dispatch(loginFail(error.message));
     }
   };
+useEffect(() => {
+  sessionStorage.getItem('accessJWT') && navigate('/dashboard');
+}, [navigate, isAuth]);
 
   return (
     <Container>

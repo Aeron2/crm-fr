@@ -4,13 +4,21 @@ import Navbar from 'react-bootstrap/Navbar';
 import logo from './../../components/logo.png';
 import { Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
+import { userLogout } from '../../api/userApi';
 function Header() {
-// const navigate = useNavigate();
+const navigate = useNavigate();
   
-//   const logMeOut = () => {
-//     navigate.push("/");
-//   }
+const logMeOut = () => {
+  sessionStorage.removeItem('accessJWT');
+  localStorage.removeItem('crmSite');
+  userLogout();
+  navigate('/');
+};
+  
+  
+  //hello world 
 
   return (
     <Navbar collapseOnSelect bg="info" variant="dark " expand="md">
@@ -27,7 +35,7 @@ function Header() {
             <Nav.Link>Tickets</Nav.Link>
           </LinkContainer>
           <LinkContainer  to="/">
-            <Nav.Link>Logout</Nav.Link>
+            <Nav.Link onClick={logMeOut}>Logout</Nav.Link>
           </LinkContainer>
 
           {/* <Nav.Link href="/dashboard">Dashboard</Nav.Link>
