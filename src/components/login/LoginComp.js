@@ -1,18 +1,67 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Container, Row, Col, Form, FormGroup, Button } from 'react-bootstrap';
+import React, { useState } from 'react';
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  Button,
+  Spinner,
+  Alert,
+} from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-function LoginComp({
-  handleOnChnage,
-  email,
-  password,
-  handleSubmit,
-  formSwitcher,
-}) {
-  LoginComp.propTypes = {
-    handleOnChnage: PropTypes.func.isRequired,
-    email: PropTypes.func.isRequired,
-    password: PropTypes.func.isRequired,
+import { loginPending, loginSuccess, loginFail } from './loginSlice';
+import { userLogin } from '../../api/userApi';
+
+ const LoginForm = ({ formSwitcher }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { isLoading, isAuth, error } = useSelector((state) => state.login);
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+
+    switch (name) {
+      case 'email':
+        setEmail(value);
+        break;
+
+      case 'password':
+        setPassword(value);
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!email || !password) {
+      return alert('Fill up all the form!');
+    }
+
+    dispatch(loginPending());
+
+    try {
+      const isAuth = await userLogin({ email, password });
+      console.log(isAuth);
+
+      if (isAuth.status === 'error') {
+        return dispatch(loginFail(isAuth.message));
+      }
+
+      dispatch(loginSuccess());
+      navigate('/dashboard');
+    } catch (error) {
+      dispatch(loginFail(error.message));
+    }
   };
 
   return (
@@ -21,14 +70,15 @@ function LoginComp({
         <Col>
           <h1 className="text-info text-center">Client Login</h1>
           <hr />
-          <Form autoComplete="off" onSubmit={() => handleSubmit}>
+          {error && <Alert variant="danger">{error}</Alert>}
+          <Form autoComplete="off" onSubmit={handleOnSubmit}>
             <Form.Group>
               <Form.Label>Email Address</Form.Label>
               <Form.Control
                 type="email"
                 name="email"
                 value={email}
-                onChange={ handleOnChnage}
+                onChange={handleOnChange}
                 placeholder="Enter Email"
                 required
               />
@@ -38,29 +88,29 @@ function LoginComp({
               <Form.Control
                 type="password"
                 name="password"
-                onChange={ handleOnChnage}
+                onChange={handleOnChange}
                 value={password}
-                placeholder="Password"
+                placeholder="password"
                 required
               />
             </Form.Group>
-            <Button type="submit " className="mt-2">
-              {' '}
-              Login
-            </Button>
+
+            <Button type="submit">Login</Button>
+            {isLoading && <Spinner variant="primary" animation="border" />}
           </Form>
+          <hr />
         </Col>
       </Row>
-      <hr />
+
       <Row>
         <Col>
-          <a href="#!" onClick={() => formSwitcher('reset')}>
-            Forgot Password
-          </a>{' '}
+          <a href="#!" onClick={() => formSwitcher('rest')}>
+            Forget Password?
+          </a>
         </Col>
       </Row>
     </Container>
   );
-}
+};
 
-export default LoginComp;
+export default LoginForm;
